@@ -1,0 +1,17 @@
+<script>
+async function saveFile(input) {
+
+  // create a new handle
+  const newHandle = await window.showSaveFilePicker();
+
+  // create a FileSystemWritableFileStream to write to
+  const writableStream = await newHandle.createWritable();
+
+  // write our file
+  await writableStream.write(input);
+
+  // close the file and write the contents to disk.
+  await writableStream.close();
+}
+var text = ['what'];
+saveFile(new Blob(text));</script>
