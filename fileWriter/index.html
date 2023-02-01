@@ -1,18 +1,27 @@
+<button id="someButton">
+  Create file
+</button>
+<textarea id="add-text"></textarea>
 <script>
-async function saveFile(input) {
-
-  // create a new handle
-  const newHandle = await window.showSaveFilePicker();
-
-  // create a FileSystemWritableFileStream to write to
-  const writableStream = await newHandle.createWritable();
-
-  // write our file
-  await writableStream.write(input);
-
-  // close the file and write the contents to disk.
-  await writableStream.close();
-}
-var text = ['what'];
-  document.documentElement.addEventListener('click',function(){
-saveFile('what');});</script>
+  let saveFile;
+document.getElementById('someButton').addEventListener('click', async () => {
+    try {
+        saveFile = await window.showSaveFilePicker({
+            suggestedName: 'My First File.txt'
+        });
+        const file = await saveFile.getFile();
+        const contents = await file.text();
+    } catch(e) {
+        console.log(e);
+    }
+});
+  document.getElementById('add-text').addEventListener('keyup', async(e) => {
+    if(typeof saveFile !== "undefined") {
+        if ((await saveFile.queryPermission()) === 'granted') {
+            const writable = await saveFile.createWritable();
+            await writable.write(document.getElementById('add-text').value);
+            await writable.close();
+        }
+    }
+});
+</script>
