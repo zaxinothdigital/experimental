@@ -11,16 +11,16 @@
 
     document.body.addEventListener('keydown', function(e){
       if(e.code == 'KeyW'){
-        y += 1;
+        x += 1;
       }
       if(e.code == 'KeyA'){
-        x -= 1;
-      }
-      if(e.code == 'KeyS'){
         y -= 1;
       }
+      if(e.code == 'KeyS'){
+        x -= 1;
+      }
       if(e.code == 'KeyD'){
-        x += 1;
+        y += 1;
       }
       element.innerHTML = keys[x][y];
     });
