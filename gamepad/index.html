@@ -23,9 +23,20 @@
         x += 1;
       }
       try {
-        element.innerHTML = keys[y][x];
+        if(keys[y] && keys[y][x]){
+          element.innerHTML = keys[y][x];
+        }
       } catch(e){
         
+      }
+      if(e.code == 'Enter'){
+        try {
+          if(keys[y] && keys[y][x]){
+            document.body.innerHTML += keys[y][x];
+          }
+        } catch(e){
+
+        }
       }
     });
 
