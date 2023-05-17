@@ -11,18 +11,22 @@
 
     document.body.addEventListener('keydown', function(e){
       if(e.code == 'KeyW'){
-        x += 1;
-      }
-      if(e.code == 'KeyA'){
         y -= 1;
       }
-      if(e.code == 'KeyS'){
+      if(e.code == 'KeyA'){
         x -= 1;
       }
-      if(e.code == 'KeyD'){
+      if(e.code == 'KeyS'){
         y += 1;
       }
-      element.innerHTML = keys[x][y];
+      if(e.code == 'KeyD'){
+        x += 1;
+      }
+      try {
+        element.innerHTML = keys[y][x];
+      } catch(e){
+        
+      }
     });
 
     var element = document.createElement('p');
