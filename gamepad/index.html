@@ -1,0 +1,31 @@
+<body>
+  <script>
+    var x = 0;
+    var y = 0;
+
+    var keys = [
+      ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
+      ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
+      ['z', 'x', 'c', 'v', 'b', 'n', 'm', ' ']
+    ];
+
+    document.body.addEventListener('keydown', function(e){
+      if(e.code == 'KeyW'){
+        y += 1;
+      }
+      if(e.code == 'KeyA'){
+        x -= 1;
+      }
+      if(e.code == 'KeyS'){
+        y -= 1;
+      }
+      if(e.code == 'KeyD'){
+        x += 1;
+      }
+      element.innerHTML = keys[x][y];
+    });
+
+    var element = document.createElement('p');
+    document.body.appendChild(element);
+  </script>
+</body>
