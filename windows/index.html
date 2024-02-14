@@ -1,0 +1,150 @@
+<script>
+  var windows = [];
+  
+  var random;
+  
+  var paddingy = 130;
+  var paddingx = 10;
+  
+  var paddlespeed = 3;
+  
+  var speedx = 1;
+  var speedy = 0.03;
+  
+  var score = 0;
+  
+  var touching = 0;
+  
+  var thing0 = () => {
+  	//random = open('about:blank', '_blank', `width=100,height=100`);
+  };
+  
+  var thing = () => {
+  	//random.moveTo((screen.width / 2) + ((Math.random() * 500) - 300), (screen.height / 2) + ((Math.random() * 500) - 300));
+    
+    for (var i = 0; i < windows.length; i++) {
+    	var op = windows[i];
+      op.x += op.dx;
+      op.y += op.dy;
+      op.moveTo(op.x, op.y);
+  
+      op.dy += speedy;
+  
+      if (op.x < paddingx) {
+        op.dx = speedx;
+      }
+      if (op.x > screen.width - paddingx - op.innerWidth) {
+        op.dx = -speedx;
+      }
+  
+      if (op.y < paddingx) {
+        //window1.dy = Math.abs(window1.dy);
+      }
+      if (op.y > screen.height - paddingy - op.innerHeight) {
+        //op.dy = speedy - Math.abs(op.dy);
+        op.close();
+        paddle.close();
+        window.loser = open('about:blank', '_blank', `width=50,height=50,left=${(screen.width / 2) - 100},top=${(screen.height / 2) - 100}`);
+        loser.resizeBy( 100 - loser.innerWidth, 75 - loser.innerHeight);
+        
+        loser.onkeydown = (e) => {
+        	if (e.code == 'Space') {
+          	loser.close();
+          	onkeydown({code: 'Space'});
+          }
+        }
+        //random.close();
+        loser.document.documentElement.innerHTML = `<h1>You lose</h1><p>Score: ${score}</p>`;
+        return;
+      }
+      
+      if (op.y > paddle.y - (op.innerHeight + 75) && (op.x + op.innerWidth > paddle.x && op.x - paddle.innerWidth < paddle.x)) {
+        op.dy = speedy - Math.abs(op.dy);
+        if (!touching) {
+        	score++;
+          paddle.document.documentElement.innerHTML = `<h1>Paddle</h1><p>Score: ${score}</p>`;
+          touching = 1;
+        }
+      } else {
+      	touching = 0;
+      }
+      
+      if (op.dy < speedy * 0.9 && op.dy > speedy * -0.9) {
+      //if (op.dy == 0){
+      	op.y = 0;
+      }
+    }
+    
+    if (keys.ArrowLeft) {
+    	paddle.x -= paddlespeed;
+    }
+    if (keys.ArrowRight) {
+    	paddle.x += paddlespeed;
+    }
+    
+    paddle.moveTo(paddle.x, paddle.y);
+    
+    setTimeout(thing);
+  }
+  
+  onkeydown = (e) => {
+  	if (e.code == 'Space') {
+    	if (window.loser) {
+      	loser.close();
+      }
+      thing0();
+      thing2();
+      thing3();
+      thing();
+      paddle.focus();
+    }
+  }
+  
+  
+  var thing2 = () => {
+    windows = [];
+    
+    var op = open('about:blank', '_blank', `width=50,height=50`);
+    op.resizeBy( 50 - op.innerWidth, 50 - op.innerHeight);
+    op.document.documentElement.innerHTML = '<h1>Bouncy</h1>';
+    op.x = 0;
+    op.y = 0;
+  
+    op.dx = 2;
+    op.dy = 0;
+    
+    windows.push(op);
+    
+    // Uncomment this line of code for a constant stream of bouncy windows (not recommended).
+    //setTimeout(thing2, 2000)
+  };
+  
+  var thing3 = () => {
+  	window.paddle = open('about:blank', '_blank', `width=50,height=50,left=${Math.round(screen.width / 2) - 25},top=${screen.height - 250}`);
+    paddle.resizeBy( 100 - paddle.innerWidth, 75 - paddle.innerHeight);
+    paddle.x = paddle.screenLeft;
+    paddle.y = paddle.screenTop;
+  
+    paddle.document.documentElement.innerHTML = '<h1>Paddle</h1><p>Score: 0</p>';
+    
+    paddle.onkeydown = (e) => {
+      if (e.code == 'ArrowLeft') {
+        keys.ArrowLeft = true;
+      } else if (e.code == 'ArrowRight') {
+        keys.ArrowRight = true;
+      }
+      
+    };
+    
+    paddle.onkeyup = (e) => {
+      if (e.code == 'ArrowLeft') {
+        keys.ArrowLeft = false;
+      } else if (e.code == 'ArrowRight') {
+        keys.ArrowRight = false;
+      }
+      
+    };
+  };
+  
+  var keys = {};
+</script>
