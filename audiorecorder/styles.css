@@ -1,0 +1,15 @@
+#contents {
+  display: none;
+}
+
+#block1 {
+  display: block;
+}
+
+#block2 {
+  display: none;
+}
+
+button[id=stop] {
+  display: none;
+}
