@@ -61,9 +61,6 @@
   	name = file.name;
   	var url = URL.createObjectURL(file);
     
-  	outputimg.src = url;
-    
-    /*
     var img = document.createElement("img");
     
     img.src = url;
@@ -71,8 +68,12 @@
     	output.width = img.width;
       output.height = img.height;
     	output.getContext('2d').drawImage(img, 0, 0);
+      
+      var url = output.toDataURL();
+      
+      outputimg.src = url;
     }
-    */
+    
   }
   
   /*
