@@ -1,12 +1,13 @@
 <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAMZJREFUWEftlksOwCAIROH+h7ZpFRcYBMVfE7trafQxMCgGgACVBwGwFvfG8BgAKVMCnKVEVuACbFdA6uZZtaf9zndBViakeYHCXNDigsSqCy7AeQrk9mW9sKwHRgOYTzOeofZuXNh+1Gob9pbACPreGuK9gc8B+i6VRtmgXwFaeDsABykmZRBuXPgl71fgXADKPGZaPjE+UYHRAGa75Jqk2ksKxP/sCvwfgLuh1QVuBbYD8AxaXeBW4AIsV4DPAw4w3QU2gAd1eowVSfMkagAAAABJRU5ErkJggg==">
 
-<title>Convert to PNG</title>
 <div id="drop">
   <div id="text">
     Drop your image here.
   </div>
 </div>
 <canvas id="output"></canvas>
+<img draggable="true" id="outputimg">
+
 <script>
   var output = document.querySelector('#output');
   var drop = document.querySelector('#drop');
@@ -49,14 +50,20 @@
     }
     
     droptext.innerHTML = "Dropped!";
-    setTimeout(() => {droptext.innerHTML = "Drop your image here.";}, 2000);
+    setTimeout(() => {droptext.innerHTML = "Drop your image here.";}, 1000);
   }
   
   var name = "";
   
+  var outputimg = document.querySelector('#outputimg');
+  
   function loadFile(file) {
   	name = file.name;
   	var url = URL.createObjectURL(file);
+    
+  	outputimg.src = url;
+    
+    /*
     var img = document.createElement("img");
     
     img.src = url;
@@ -65,8 +72,10 @@
       output.height = img.height;
     	output.getContext('2d').drawImage(img, 0, 0);
     }
+    */
   }
   
+  /*
   output.oncontextmenu = (e) => {
   	e.preventDefault();
     var url = output.toDataURL();
@@ -78,8 +87,8 @@
     a.click();
     document.documentElement.removeChild(a);
   }
+  */
 </script>
-
 <style>
   #drop {
     width: 100%;
@@ -94,5 +103,9 @@
     line-height: 98px;
     box-sizing: border-box;
     height: 98px;
+  }
+  
+  #output {
+    display: none;
   }
 </style>
