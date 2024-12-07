@@ -42,7 +42,7 @@
     console.log(document.querySelector('#output'));
     function useAccelerometer() {
         // Access the accelerometer data here
-        const accelerometer = new Accelerometer({ frequency: 30 });
+        window.accelerometer = new Accelerometer({ frequency: 30 });
         accelerometer.start();
         update();
     }
