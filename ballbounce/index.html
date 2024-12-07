@@ -43,9 +43,9 @@
         const accelerometer = new Accelerometer({ frequency: 30 });
         accelerometer.addEventListener('reading', () => {
             var circle = document.querySelector('#output');
-            circle.r = (accelerometer.y / 9.8) * 100 + 500;
-            circle.cx = (accelerometer.x / 9.8) * 100 + 500;
-            circle.cy = (accelerometer.z / 9.8) * 100 + 500;
+            circle.setAttribute('r', (accelerometer.y / 9.8) * 100 + 500);
+            circle.setAttribute('cx', (accelerometer.x / 9.8) * 100 + 500);
+            circle.setAttribute('cx', (accelerometer.z / 9.8) * 100 + 500);
             console.log(accelerometer.x, accelerometer.y, accelerometer.z);
         });
         accelerometer.start();
