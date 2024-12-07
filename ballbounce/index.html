@@ -1,0 +1,49 @@
+<svg width="1000" height="1000">
+    <circle id="output" rx="20" ry="20" cx="500" cy="500">
+</svg>
+
+<script>
+    if ('Accelerometer' in window) {
+        // Check if the browser supports the Accelerometer API
+        
+        navigator.permissions.query({ name: 'accelerometer' })
+            .then(result => {
+                if (result.state === 'granted') {
+                    // Permission already granted, use the accelerometer
+                    useAccelerometer();
+                } else if (result.state === 'prompt') {
+                    // Request permission from the user
+                    navigator.permissions.request({ name: 'accelerometer' })
+                        .then(permissionResult => {
+                            if (permissionResult.state === 'granted') {
+                                // Permission granted, use the accelerometer
+                                useAccelerometer();
+                            } else {
+                                // Permission denied, handle accordingly
+                                console.log('Accelerometer permission denied.');
+                            }
+                        });
+                } else {
+                    // Permission denied, handle accordingly
+                    console.log('Accelerometer permission denied.');
+                }
+        })
+        .catch(error => {
+            // Error handling
+            console.error('Error requesting accelerometer permission:', error);
+        });
+    } else {
+        // Accelerometer API not supported
+        console.log('Accelerometer not supported by this browser.');
+    }
+    
+    function useAccelerometer() {
+        // Access the accelerometer data here
+        const accelerometer = new Accelerometer({ frequency: 60 });
+        accelerometer.addEventListener('reading', () => {
+            var circle = document.querySelector('#output');
+            // Todo - make the circle move
+        });
+        accelerometer.start();
+    }
+</script>
