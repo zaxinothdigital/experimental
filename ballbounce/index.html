@@ -74,6 +74,8 @@
             axes.inout = variableName;
             
             axes.inoutsign = variables[variableName] > 0 ? 1 : -1;
+
+            axes.inoutoriginal = variables;
             
             console.log(variableName);
             calstep = 1;
@@ -94,6 +96,8 @@
             axes.updown = variableName;
 
             axes.updownsign = variables[variableName] > 0 ? 1 : -1;
+
+            axes.updownoriginal = vriables;
             
             console.log(variableName);
             calstep = 2;
@@ -114,6 +118,8 @@
             axes.leftright = variableName;
 
             axes.leftrightsign = variables[variableName] > 0 ? 1 : -1;
+
+            axes.leftrightoriginal = variables;
             
             console.log(variableName);
             calstep = 3;
