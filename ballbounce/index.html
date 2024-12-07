@@ -134,9 +134,9 @@
         }
         if (calstep == 3) {
             var circle = document.querySelector('#output');
-            circle.setAttribute("r", ((accelerometer[axes.inout] * axes.inoutsign) / 9.8 + 3) * 10);
+            circle.setAttribute("r", Math.abs((accelerometer[axes.inout] * axes.inoutsign) / 9.8 + 3) * 50);
             circle.setAttribute("cx", ((accelerometer[axes.leftright] * axes.leftrightsign) / 9.8) * 50 + 250);
-            circle.setAttribute("cy", ((accelerometer[axes.updownright] * axes.updownsign) / 9.8) * 50 + 250);
+            circle.setAttribute("cy", ((accelerometer[axes.updown] * axes.updownsign) / 9.8) * 50 + 250);
         }
         //console.log(accelerometer.x, accelerometer.y, accelerometer.z);
         requestAnimationFrame(update);
