@@ -1,151 +1,151 @@
 <svg width="500" height="500">
-    <circle cx="250" cy="250" r=250 fill="#00ff00" />
-    <circle id="output" r="20" cx="500" cy="500" />
-    <rect x=250 y=0 width=1 height=500 fill="red"/>
-    <rect x=0 y=250 width=500 height=1 fill="red"/>
+  <circle cx="250" cy="250" r=250 fill="#00ff00" />
+  <circle id="output" r="20" cx="500" cy="500" />
+  <rect x=250 y=0 width=1 height=500 fill="red"/>
+  <rect x=0 y=250 width=500 height=1 fill="red"/>
 </svg>
 
 <script>
-    if ('Accelerometer' in window) {
-        // Check if the browser supports the Accelerometer API
-        
-        navigator.permissions.query({ name: 'accelerometer' })
-            .then(result => {
-                if (result.state === 'granted') {
-                    // Permission already granted, use the accelerometer
-                    useAccelerometer();
-                } else if (result.state === 'prompt') {
-                    // Request permission from the user
-                    navigator.permissions.request({ name: 'accelerometer' })
-                        .then(permissionResult => {
-                            if (permissionResult.state === 'granted') {
-                                // Permission granted, use the accelerometer
-                                useAccelerometer();
-                            } else {
-                                // Permission denied, handle accordingly
-                                console.log('Accelerometer permission denied.');
-                            }
-                        });
-                } else {
-                    // Permission denied, handle accordingly
-                    console.log('Accelerometer permission denied.');
-                }
-        })
-        .catch(error => {
-            // Error handling
-            console.error('Error requesting accelerometer permission:', error);
+  if ('Accelerometer' in window) {
+    // Check if the browser supports the Accelerometer API
+
+    navigator.permissions.query({ name: 'accelerometer' })
+      .then(result => {
+      if (result.state === 'granted') {
+        // Permission already granted, use the accelerometer
+        useAccelerometer();
+      } else if (result.state === 'prompt') {
+        // Request permission from the user
+        navigator.permissions.request({ name: 'accelerometer' })
+          .then(permissionResult => {
+          if (permissionResult.state === 'granted') {
+            // Permission granted, use the accelerometer
+            useAccelerometer();
+          } else {
+            // Permission denied, handle accordingly
+            console.log('Accelerometer permission denied.');
+          }
         });
-    } else {
-        // Accelerometer API not supported
-        console.log('Accelerometer not supported by this browser.');
+      } else {
+        // Permission denied, handle accordingly
+        console.log('Accelerometer permission denied.');
+      }
+    })
+      .catch(error => {
+      // Error handling
+      console.error('Error requesting accelerometer permission:', error);
+    });
+  } else {
+    // Accelerometer API not supported
+    console.log('Accelerometer not supported by this browser.');
+  }
+
+  console.log(document.querySelector('#output'));
+  function useAccelerometer() {
+    // Access the accelerometer data here
+    window.accelerometer = new Accelerometer({ frequency: 30 });
+    accelerometer.start();
+    update();
+  }
+  var calstep = 0;
+
+  var axes = {
+    inout: null,
+    inoutsign: 1,
+    leftright: null,
+    leftrightsign: 1,
+    updown: null,
+    updownsign: 1,
+  }
+
+  onclick = (e) => {
+    if (calstep == 0.5) {
+      var x = accelerometer.x;
+      var y = accelerometer.y;
+      var z = accelerometer.z;
+      var distx = Math.abs(9.8 - Math.abs(x));
+      var disty = Math.abs(9.8 - Math.abs(y));
+      var distz = Math.abs(9.8 - Math.abs(z));
+
+      let variables = { x: distx, y: disty, z: distz };
+
+      let smallest = Math.min(...Object.values(variables));
+      let variableName = Object.keys(variables).find(key => variables[key] === smallest);
+
+      axes.inout = variableName;
+
+      axes.inoutsign = variables[variableName] > 0 ? -1 : 1;
+
+      axes.inoutoriginal = variables;
+
+      console.log(variableName);
+      calstep = 1;
     }
+    if (calstep == 1.5) {
+      var x = accelerometer.x;
+      var y = accelerometer.y;
+      var z = accelerometer.z;
+      var distx = Math.abs(9.8 - Math.abs(x));
+      var disty = Math.abs(9.8 - Math.abs(y));
+      var distz = Math.abs(9.8 - Math.abs(z));
 
-    console.log(document.querySelector('#output'));
-    function useAccelerometer() {
-        // Access the accelerometer data here
-        window.accelerometer = new Accelerometer({ frequency: 30 });
-        accelerometer.start();
-        update();
+      let variables = { x: distx, y: disty, z: distz };
+
+      let smallest = Math.min(...Object.values(variables));
+      let variableName = Object.keys(variables).find(key => variables[key] === smallest);
+
+      axes.updown = variableName;
+
+      axes.updownsign = variables[variableName] > 0 ? -1 : 1;
+
+      axes.updownoriginal = variables;
+
+      console.log(variableName);
+      calstep = 2;
     }
-    var calstep = 0;
-    
-    var axes = {
-        inout: null,
-        inoutsign: 1,
-        leftright: null,
-        leftrightsign: 1,
-        updown: null,
-        updownsign: 1,
+    if (calstep == 2.5) {
+      var x = accelerometer.x;
+      var y = accelerometer.y;
+      var z = accelerometer.z;
+      var distx = Math.abs(9.8 - Math.abs(x));
+      var disty = Math.abs(9.8 - Math.abs(y));
+      var distz = Math.abs(9.8 - Math.abs(z));
+
+      let variables = { x: distx, y: disty, z: distz };
+
+      let smallest = Math.min(...Object.values(variables));
+      let variableName = Object.keys(variables).find(key => variables[key] === smallest);
+
+      axes.leftright = variableName;
+
+      axes.leftrightsign = variables[variableName] > 0 ? -1 : 1;
+
+      axes.leftrightoriginal = variables;
+
+      console.log(variableName);
+      calstep = 3;
     }
-    
-    onclick = (e) => {
-        if (calstep == 0.5) {
-            var x = accelerometer.x;
-            var y = accelerometer.y;
-            var z = accelerometer.z;
-            var distx = Math.abs(9.8 - Math.abs(x));
-            var disty = Math.abs(9.8 - Math.abs(y));
-            var distz = Math.abs(9.8 - Math.abs(z));
-
-            let variables = { x: distx, y: disty, z: distz };
-            
-            let smallest = Math.min(...Object.values(variables));
-            let variableName = Object.keys(variables).find(key => variables[key] === smallest);
-            
-            axes.inout = variableName;
-            
-            axes.inoutsign = variables[variableName] > 0 ? 1 : -1;
-
-            axes.inoutoriginal = variables;
-            
-            console.log(variableName);
-            calstep = 1;
-        }
-        if (calstep == 1.5) {
-            var x = accelerometer.x;
-            var y = accelerometer.y;
-            var z = accelerometer.z;
-            var distx = Math.abs(9.8 - Math.abs(x));
-            var disty = Math.abs(9.8 - Math.abs(y));
-            var distz = Math.abs(9.8 - Math.abs(z));
-            
-            let variables = { x: distx, y: disty, z: distz };
-            
-            let smallest = Math.min(...Object.values(variables));
-            let variableName = Object.keys(variables).find(key => variables[key] === smallest);
-            
-            axes.updown = variableName;
-
-            axes.updownsign = variables[variableName] > 0 ? 1 : -1;
-
-            axes.updownoriginal = variables;
-            
-            console.log(variableName);
-            calstep = 2;
-        }
-        if (calstep == 2.5) {
-            var x = accelerometer.x;
-            var y = accelerometer.y;
-            var z = accelerometer.z;
-            var distx = Math.abs(9.8 - Math.abs(x));
-            var disty = Math.abs(9.8 - Math.abs(y));
-            var distz = Math.abs(9.8 - Math.abs(z));
-
-            let variables = { x: distx, y: disty, z: distz };
-            
-            let smallest = Math.min(...Object.values(variables));
-            let variableName = Object.keys(variables).find(key => variables[key] === smallest);
-            
-            axes.leftright = variableName;
-
-            axes.leftrightsign = variables[variableName] > 0 ? 1 : -1;
-
-            axes.leftrightoriginal = variables;
-            
-            console.log(variableName);
-            calstep = 3;
-        }
+  }
+  function update() {
+    if (calstep == 0) {
+      alert('Place your phone on a flat surface. Tap the screen when ready.');
+      calstep = 0.5;
     }
-    function update() {
-        if (calstep == 0) {
-            alert('Place your phone on a flat surface. Tap the screen when ready.');
-            calstep = 0.5;
-        }
-        if (calstep == 1) {
-            alert('Place your phone upright against a wall. Tap the screen when ready.');
-            calstep = 1.5;
-        }
-        if (calstep == 2) {
-            alert('Place your phone sideways against a wall, with the left side down. Tap the screen when ready.');
-            calstep = 2.5;
-        }
-        if (calstep == 3) {
-            var circle = document.querySelector('#output');
-            circle.setAttribute("r", Math.abs((accelerometer[axes.inout] * -axes.inoutsign) / 9.8 + 3) * 20);
-            circle.setAttribute("cx", ((accelerometer[axes.leftright] * -axes.leftrightsign) / 9.8) * 100 + 250);
-            circle.setAttribute("cy", ((accelerometer[axes.updown] * -axes.updownsign) / 9.8) * 100 + 250);
-        }
-        //console.log(accelerometer.x, accelerometer.y, accelerometer.z);
-        requestAnimationFrame(update);
+    if (calstep == 1) {
+      alert('Place your phone upright against a wall. Tap the screen when ready.');
+      calstep = 1.5;
     }
+    if (calstep == 2) {
+      alert('Place your phone sideways against a wall, with the left side down. Tap the screen when ready.');
+      calstep = 2.5;
+    }
+    if (calstep == 3) {
+      var circle = document.querySelector('#output');
+      circle.setAttribute("r", Math.abs((accelerometer[axes.inout] * axes.inoutsign) / 9.8 + 3) * 20);
+      circle.setAttribute("cx", ((accelerometer[axes.leftright] * axes.leftrightsign) / 9.8) * 100 + 250);
+      circle.setAttribute("cy", ((accelerometer[axes.updown] * axes.updownsign) / 9.8) * 100 + 250);
+    }
+    //console.log(accelerometer.x, accelerometer.y, accelerometer.z);
+    requestAnimationFrame(update);
+  }
 </script>
