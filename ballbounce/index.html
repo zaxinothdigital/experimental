@@ -36,7 +36,8 @@
         // Accelerometer API not supported
         console.log('Accelerometer not supported by this browser.');
     }
-    
+
+    console.log(document.querySelector('#output'));
     function useAccelerometer() {
         // Access the accelerometer data here
         const accelerometer = new Accelerometer({ frequency: 30 });
