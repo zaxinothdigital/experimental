@@ -1,5 +1,5 @@
 <svg width="500" height="500">
-    <rect x="0" y="0" width="500" height="500" fill="#00ff00" />
+    <circle cx="0" cy="0" r=500 fill="#00ff00" />
     <circle id="output" r="20" cx="500" cy="500" />
     <circle x="250" y="250" r="5" fill="#ff0000" />
 </svg>
@@ -140,9 +140,9 @@
         }
         if (calstep == 3) {
             var circle = document.querySelector('#output');
-            circle.setAttribute("r", Math.abs((accelerometer[axes.inout] * -axes.inoutsign) / 9.8 + 3) * 10);
-            circle.setAttribute("cx", ((accelerometer[axes.leftright] * -axes.leftrightsign) / 9.8) * 50 + 250);
-            circle.setAttribute("cy", ((accelerometer[axes.updown] * -axes.updownsign) / 9.8) * 50 + 250);
+            circle.setAttribute("r", Math.abs((accelerometer[axes.inout] * -axes.inoutsign) / 9.8 + 3) * 20);
+            circle.setAttribute("cx", ((accelerometer[axes.leftright] * -axes.leftrightsign) / 9.8) * 100 + 250);
+            circle.setAttribute("cy", ((accelerometer[axes.updown] * -axes.updownsign) / 9.8) * 100 + 250);
         }
         //console.log(accelerometer.x, accelerometer.y, accelerometer.z);
         requestAnimationFrame(update);
