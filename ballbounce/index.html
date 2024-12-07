@@ -43,13 +43,102 @@
     function useAccelerometer() {
         // Access the accelerometer data here
         const accelerometer = new Accelerometer({ frequency: 30 });
-        accelerometer.addEventListener('reading', () => {
-            var circle = document.querySelector('#output');
-            circle.setAttribute('r', Math.abs((accelerometer.y + 9.8 * 3) / 9.8) * 10);
-            circle.setAttribute('cx', (-accelerometer.x / 9.8) * 100 + 250);
-            circle.setAttribute('cy', (accelerometer.z / 9.8) * 100 + 250);
-            console.log(accelerometer.x, accelerometer.y, accelerometer.z);
-        });
         accelerometer.start();
+        update();
+    }
+    var calstep = 0;
+    
+    var axes = {
+        inout: null,
+        inoutsign: 1,
+        leftright: null,
+        leftrightsign: 1,
+        updown: null,
+        updownsign: 1,
+    }
+    
+    onclick = (e) => {
+        if (calstep == 0.5) {
+            var x = accelerometer.x;
+            var y = accelerometer.y;
+            var z = accelerometer.z;
+            var distx = Math.abs(9.8 - x);
+            var disty = Math.abs(9.8 - y);
+            var distz = Math.abs(9.8 - z);
+
+            let variables = { x: x, y: y, z: z };
+            
+            let smallest = Math.min(...Object.values(variables));
+            let variableName = Object.keys(variables).find(key => variables[key] === smallest);
+            
+            axes.inout = variableName;
+            
+            axes.inoutsign = variables[variableName] > 0 ? 1 : -1;
+            
+            console.log(variableName);
+            calstep = 1;
+        }
+        if (calstep == 1.5) {
+            var x = accelerometer.x;
+            var y = accelerometer.y;
+            var z = accelerometer.z;
+            var distx = Math.abs(9.8 - x);
+            var disty = Math.abs(9.8 - y);
+            var distz = Math.abs(9.8 - z);
+
+            let variables = { x: x, y: y, z: z };
+            
+            let smallest = Math.min(...Object.values(variables));
+            let variableName = Object.keys(variables).find(key => variables[key] === smallest);
+            
+            axes.updown = variableName;
+
+            axes.updownsign = variables[variableName] > 0 ? 1 : -1;
+            
+            console.log(variableName);
+            calstep = 2;
+        }
+        if (calstep == 2.5) {
+            var x = accelerometer.x;
+            var y = accelerometer.y;
+            var z = accelerometer.z;
+            var distx = Math.abs(9.8 - x);
+            var disty = Math.abs(9.8 - y);
+            var distz = Math.abs(9.8 - z);
+
+            let variables = { x: x, y: y, z: z };
+            
+            let smallest = Math.min(...Object.values(variables));
+            let variableName = Object.keys(variables).find(key => variables[key] === smallest);
+            
+            axes.leftright = variableName;
+
+            axes.leftrightsign = variables[variableName] > 0 ? 1 : -1;
+            
+            console.log(variableName);
+            calstep = 3;
+        }
+    }
+    function update() {
+        if (calstep == 0) {
+            alert('Place your phone on a flat surface. Tap the screen when ready.');
+            calstep = 0.5;
+        }
+        if (calstep == 1) {
+            alert('Place your phone upright against a wall. Tap the screen when ready.');
+            calstep = 1.5;
+        }
+        if (calstep == 2) {
+            alert('Place your phone sideways against a wall, with the left side down. Tap the screen when ready.');
+            calstep = 2.5;
+        }
+        if (calstep == 3) {
+            var circle = document.querySelector('#output');
+            circle.setAttribute("r", ((accelerometer[axes.inout] * axes.inoutsign) / 9.8 + 3) * 10);
+            circle.setAttribute("x", ((accelerometer[axes.leftright] * axes.leftrightsign) / 9.8) * 50 + 250);
+            circle.setAttribute("y", ((accelerometer[axes.updownright] * axes.updownsign) / 9.8) * 50 + 250);
+        }
+        //console.log(accelerometer.x, accelerometer.y, accelerometer.z);
+        requestAnimationFrame(update)'
     }
 </script>
