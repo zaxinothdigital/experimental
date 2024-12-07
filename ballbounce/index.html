@@ -39,12 +39,13 @@
     
     function useAccelerometer() {
         // Access the accelerometer data here
-        const accelerometer = new Accelerometer({ frequency: 60 });
+        const accelerometer = new Accelerometer({ frequency: 30 });
         accelerometer.addEventListener('reading', () => {
             var circle = document.querySelector('#output');
-            circle.r = (9.8 / accelerometer.z) * 20;
-            circle.cx = (9.8 / accelerometer.x) * 20;
-            circle.cy = (9.8 / accelerometer.y) * 20;
+            circle.r = (9.8 / accelerometer.z) * 20 + 500;
+            circle.cx = (9.8 / accelerometer.x) * 20 + 500;
+            circle.cy = (9.8 / accelerometer.y) * 20 + 500;
+            console.log(accelerometer.x, accelerometer.y, accelerometer.z);
         });
         accelerometer.start();
     }
