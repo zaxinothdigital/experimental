@@ -1,4 +1,4 @@
-<svg width="1000" height="1000">
+<svg width="500" height="500">
     <circle id="output" r="20" cx="500" cy="500">
 </svg>
 
@@ -43,9 +43,9 @@
         const accelerometer = new Accelerometer({ frequency: 30 });
         accelerometer.addEventListener('reading', () => {
             var circle = document.querySelector('#output');
-            circle.setAttribute('r', (accelerometer.y / 9.8) * 100 + 500);
-            circle.setAttribute('cx', (accelerometer.x / 9.8) * 100 + 500);
-            circle.setAttribute('cx', (accelerometer.z / 9.8) * 100 + 500);
+            circle.setAttribute('r', (accelerometer.y / 9.8) * 10);
+            circle.setAttribute('cx', (accelerometer.x / 9.8) * 50 + 250);
+            circle.setAttribute('cx', (accelerometer.z / 9.8) * 50 + 250);
             console.log(accelerometer.x, accelerometer.y, accelerometer.z);
         });
         accelerometer.start();
