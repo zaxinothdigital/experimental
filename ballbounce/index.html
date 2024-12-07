@@ -46,7 +46,7 @@
         accelerometer.addEventListener('reading', () => {
             var circle = document.querySelector('#output');
             circle.setAttribute('r', Math.abs((accelerometer.y + 9.8 * 3) / 9.8) * 10);
-            circle.setAttribute('cx', (accelerometer.x / 9.8) * 100 + 250);
+            circle.setAttribute('cx', (-accelerometer.x / 9.8) * 100 + 250);
             circle.setAttribute('cy', (accelerometer.z / 9.8) * 100 + 250);
             console.log(accelerometer.x, accelerometer.y, accelerometer.z);
         });
