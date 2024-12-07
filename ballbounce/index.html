@@ -62,9 +62,9 @@
             var x = accelerometer.x;
             var y = accelerometer.y;
             var z = accelerometer.z;
-            var distx = Math.abs(9.8 - x);
-            var disty = Math.abs(9.8 - y);
-            var distz = Math.abs(9.8 - z);
+            var distx = Math.abs(9.8 - Math.abs(x));
+            var disty = Math.abs(9.8 - Math.abs(y));
+            var distz = Math.abs(9.8 - Math.abs(z));
 
             let variables = { x: x, y: y, z: z };
             
@@ -84,10 +84,10 @@
             var x = accelerometer.x;
             var y = accelerometer.y;
             var z = accelerometer.z;
-            var distx = Math.abs(9.8 - x);
-            var disty = Math.abs(9.8 - y);
-            var distz = Math.abs(9.8 - z);
-
+            var distx = Math.abs(9.8 - Math.abs(x));
+            var disty = Math.abs(9.8 - Math.abs(y));
+            var distz = Math.abs(9.8 - Math.abs(z));
+            
             let variables = { x: x, y: y, z: z };
             
             let smallest = Math.min(...Object.values(variables));
@@ -106,9 +106,9 @@
             var x = accelerometer.x;
             var y = accelerometer.y;
             var z = accelerometer.z;
-            var distx = Math.abs(9.8 - x);
-            var disty = Math.abs(9.8 - y);
-            var distz = Math.abs(9.8 - z);
+            var distx = Math.abs(9.8 - Math.abs(x));
+            var disty = Math.abs(9.8 - Math.abs(y));
+            var distz = Math.abs(9.8 - Math.abs(z));
 
             let variables = { x: x, y: y, z: z };
             
