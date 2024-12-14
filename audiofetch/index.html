@@ -1,0 +1,11 @@
+Enter URL: <input type="url" id="input"> <button id="start">Go</button>
+<audio id="output"></audio>
+
+<script>
+  var input = document.querySelector('#input');
+  var output = document.querySelector('#output');
+  var start = document.querySelector('#start');
+  start.onclick = (e) => {
+    output.src = input.value;
+  }
+</script>
